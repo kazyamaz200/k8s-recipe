@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kube-system
+  namespace: kube-system
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    external-dns.alpha.kubernetes.io/target: 51.15.39.110
+    external-dns.alpha.kubernetes.io/target: 51.15.85.186
+spec:
+  tls:
+  - hosts:
+    - kubernetes.cf
+    secretName: domain-tls
+  rules:
+  - host: kubernetes.cf
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80

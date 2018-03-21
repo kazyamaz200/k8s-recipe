@@ -1,0 +1,16 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: domain-cert
+  namespace: kube-system
+spec:
+  secretName: domain-tls
+  issuerRef:
+    name: letsencrypt-prod-cluster-issuer
+    kind: ClusterIssuer
+  commonName: kubernetes.cf
+  acme:
+    config:
+    - http01: {}
+      domains:
+      - kubernetes.cf
