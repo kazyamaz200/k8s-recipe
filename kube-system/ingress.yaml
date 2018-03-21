@@ -16,6 +16,7 @@ spec:
   - host: kubernetes.cf
     http:
       paths:
-      - backend:
+      - path: /
+        backend:
           serviceName: nginx
           servicePort: 80
