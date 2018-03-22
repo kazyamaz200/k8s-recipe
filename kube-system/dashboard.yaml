@@ -172,7 +172,7 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: dashboard-admin
+  name: webmaster
   namespace: kube-system
 
 ---
@@ -180,12 +180,12 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: dashboard-admin
+  name: webmaster
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: cluster-admin
 subjects:
 - kind: ServiceAccount
-  name: dashboard-admin
+  name: webmaster
   namespace: kube-system

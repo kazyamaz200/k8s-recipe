@@ -7,6 +7,8 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     external-dns.alpha.kubernetes.io/target: 51.15.39.110
     external-dns.alpha.kubernetes.io/target: 51.15.85.186
+    nginx.ingress.kubernetes.io/auth-signin: https://weave.kubernetes.cf/oauth2/start
+    nginx.ingress.kubernetes.io/auth-url: https://weave.kubernetes.cf/oauth2/auth
 spec:
   tls:
   - hosts:
@@ -20,3 +22,25 @@ spec:
           serviceName: weave-scope-app
           servicePort: 80
         
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: oauth2-proxy
+  namespace: weave
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+  - hosts:
+    - weave.kubernetes.cf
+    secretName: domain-tls
+  rules:
+  - host: weave.kubernetes.cf
+    http:
+      paths:
+      - backend:
+          serviceName: oauth2-proxy
+          servicePort: 4180
+        path: /oauth2
